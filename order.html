@@ -104,8 +104,9 @@
 						  	</div>
 						  </div>
 
-						  <input type="submit" class="btn btn-success btn-block mb-5" value="Order Via Whatsapp">
-
+						  <input type="submit" class="btn btn-success btn-block" value="Order Via Whatsapp">
+						  <div class="text-center lead mt-2 mb-2">Atau</div>
+						  <button id="tanya" class="btn btn-block btn-success mb-5">Tanya-tanya Dulu Ke Admin</button>
 						</form>
 					</div>
 			</div>
@@ -118,6 +119,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		let frm = document.querySelector("#order-form");
+		let btnAsk = document.querySelector("#tanya")
+		let waAdmin = document.querySelector("#wa-admin").value.trim()
+
+		btnAsk.addEventListener('click', function(e) {
+			e.preventDefault()
+			window.location.href = "https://wa.me/" + waAdmin + "?text=" + encodeURI("Assalaamu'alaikum..\nMin aku mau tanya sweater Gold Hijaiyah");
+		})
 
 		frm.addEventListener('submit', function(e) {
 			e.preventDefault();
