@@ -35,6 +35,10 @@
 </head>
 <body>
 
+	<script>
+	  fbq('track', 'InitiateCheckout');
+	</script>
+
 	<div class="container-fluid">
 
 		<div class="row justify-content-center">
@@ -135,7 +139,7 @@
 
 			// alert(waApi);
 
-			window.location.href=waApi;
+			window.location.href="purchase.html?api=" + waApi;
 		})
 	</script>
 </body>
