@@ -17,29 +17,75 @@
 </head>
 <body>
 
-	<div class="container">
+	<div class="container-fluid">
 
 		<div class="row justify-content-center">
 			<div class="col-12 pt-3">
-				<div class="card">
-				  <div class="card-header text-center">
-				    FORMULIR ORDER
-				  </div>
-					<div class="card-body">
 						<form id="order-form" method="post" href="#">
-						  <div class="form-group">
-						    <label for="no-wa">No Whatsapp Admin</label>
-						    <input type="text" value="6281388882035" class="form-control" id="no-wa" disabled>
+
+						    <!-- <input type="hidden" value="6281388882035" class="form-control" id="wa-admin" disabled> -->
+						    <input type="hidden" value="6282118089640" class="form-control" id="wa-admin" disabled>
+
+						  <div class="card">
+							  <div class="card-header text-center">
+							    Informasi Pemesan
+							  </div>
+							  <div class="card-body">
+								  <div class="form-group">
+								    <label for="name">Nama Pemesan</label>
+								    <input type="text" placeholder="Nama Pemesan" class="form-control" id="name" required maxlength="20" size="30">
+								  </div>
+								  <div class="form-group">
+								    <label for="no-hp">No HP</label>
+								    <input type="text" placeholder="No HP/WA Pemesan" class="form-control" id="no-hp" required maxlength="20" size="20">
+								  </div>
+								  <div class="form-group">
+								    <label for="address">Alamat Lengkap</label>
+								    <textarea class="form-control" id="address" rows="5" required maxlength="300" placeholder="Alamat Lengkap / Alamat Tujuan Pengiriman Barang"></textarea>
+								  </div>
+							  </div>
 						  </div>
-						  <div class="form-group">
-						    <label for="msg">Format Pemesanan</label>
-						    <textarea class="form-control" id="msg" rows="5">Assalaamu'alaikum min...
-Aku mau dong pesan sweater Gold Hijaiyah nya...</textarea>
+
+						  <div class="card mt-2">
+							  <div class="card-header text-center">
+							    Detil Pesanan
+							  </div>
+							  <div class="card-body row">
+								  <div class="form-group col-12">
+								    <label for="product-name">Nama Desain</label>
+								    <input type="text" value="Zawrakids Gold Hijaiyah" class="form-control" id="product-name" readonly required maxlength="30">
+								  </div>
+								  <div class="form-group col-6">
+								    <label for="size">Ukuran</label>
+								    <select class="form-control" id="size" required>
+								    	<option disabled selected>--Size--</option>
+								    	<option value="S">S</option>
+								    	<option value="M">M</option>
+								    	<option value="L">L</option>
+								    </select>
+								  </div>
+								  <div class="form-group col-6">
+								    <label for="qty">Jumlah</label>
+								    <input type="number" value="1" class="form-control" id="qty" required size="3">
+								  </div>
+								</div>
 						  </div>
-						  <input type="submit" class="btn btn-success btn-block" value="Order Via Whatsapp">
+
+						  <div class="card mt-2 mb-2">
+						  	<div class="card-header text-center">
+						  		Pertanyaan ke admin
+						  	</div>
+						  	<div class="card-body">
+							  <div class="form-group">
+							    <textarea class="form-control" id="msg" rows="5" placeholder="Silakan tanya sesuatu di kolom ini..."></textarea>
+							  </div>
+						  	</div>
+						  </div>
+
+						  <input type="submit" class="btn btn-success btn-block mb-5" value="Order Via Whatsapp">
+
 						</form>
 					</div>
-				</div>
 			</div>
 		</div>
 
@@ -50,16 +96,29 @@ Aku mau dong pesan sweater Gold Hijaiyah nya...</textarea>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		let frm = document.querySelector("#order-form");
-		let noWa = document.querySelector("#no-wa");
-		let msg = document.querySelector("#msg");
-		let waApi = "https://wa.me/" + noWa.value + "?text=" + encodeURI(msg.value);
-
 
 		frm.addEventListener('submit', function(e) {
 			e.preventDefault();
-			// alert(noWa.value + "\n" + msg.value + "\n" + waApi);
+			let waAdmin = document.querySelector("#wa-admin").value.trim()
+			let name = document.querySelector("#name").value.trim()
+			let noHp = document.querySelector("#no-hp").value.trim()
+			let address = document.querySelector("#address").value.trim()
+			let productName = document.querySelector("#product-name").value.trim()
+			let size = document.querySelector("#size").value.trim()
+			let qty = document.querySelector("#qty").value.trim()
+			let msg = document.querySelector("#msg").value.trim()
+			let orderHeader = "Assalamu'alaikum min..\nAku mau pesan.."
+
+			let orderFormat = `${orderHeader}\n\n*===== PENERIMA =====*\n*-Nama:* ${name}\n*-No HP:* ${noHp}\n*-Alamat Lengkap:*\n${address}\n\n`
+			orderFormat += `*===== DAFTAR PESANAN =====*\n1) ${productName} - ${size} - ${qty}\n\n`
+			orderFormat += `*===== PERTANYAAN =====*\n${msg}`
+
+			let waApi = "https://wa.me/" + waAdmin + "?text=" + encodeURI(orderFormat);
+
+			// alert(waApi);
+
 			window.location.href=waApi;
 		})
 	</script>
 </body>
-</html>
+</html> 
