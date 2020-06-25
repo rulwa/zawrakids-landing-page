@@ -126,6 +126,7 @@
 		btnAsk.addEventListener('click', function(e) {
 			e.preventDefault()
 			window.location.href = "https://wa.me/" + waAdmin + "?text=" + encodeURI("Assalaamu'alaikum..\nMin aku mau tanya sweater Gold Hijaiyah");
+			fbq('track', 'Contact');
 		})
 
 		frm.addEventListener('submit', function(e) {
